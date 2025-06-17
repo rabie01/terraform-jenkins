@@ -25,7 +25,7 @@ resource "aws_instance" "jenkins_ec2_instance_ip" {
   tags = {
     Name = var.tag_name
   }
-  key_name                    = "aws_ec2_terraform"
+  key_name                    = "devops-projects"
   subnet_id                   = var.subnet_id
   vpc_security_group_ids      = var.sg_for_jenkins
   associate_public_ip_address = var.enable_public_ip_address
@@ -37,8 +37,9 @@ resource "aws_instance" "jenkins_ec2_instance_ip" {
     http_tokens   = "required" # Require the use of IMDSv2 tokens
   }
 }
-
+/*
 resource "aws_key_pair" "jenkins_ec2_instance_public_key" {
   key_name   = "aws_ec2_terraform"
   public_key = var.public_key
 }
+*/

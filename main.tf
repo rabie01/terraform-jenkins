@@ -23,7 +23,7 @@ module "jenkins" {
   subnet_id                 = tolist(module.networking.dev_proj_1_public_subnets)[0]
   sg_for_jenkins            = [module.security_group.sg_ec2_sg_ssh_http_id, module.security_group.sg_ec2_jenkins_port_8080]
   enable_public_ip_address  = true
-  user_data_install_jenkins = templatefile("./jenkins-runner-script/jenkins-installer.sh", {})
+  user_data_install_jenkins = templatefile("./jenkins-runner-script/new-jenkins.sh", {})
 }
 
 module "lb_target_group" {
@@ -56,13 +56,13 @@ module "alb" {
 
 module "hosted_zone" {
   source          = "./hosted-zone"
-  domain_name     = "jenkins.jhooq.org"
+  domain_name     = "jenkins.rabietech.dpdns.org"
   aws_lb_dns_name = module.alb.aws_lb_dns_name
   aws_lb_zone_id  = module.alb.aws_lb_zone_id
 }
 
 module "aws_ceritification_manager" {
   source         = "./certificate-manager"
-  domain_name    = "jenkins.jhooq.org"
+  domain_name    = "jenkins.rabietech.dpdns.org"
   hosted_zone_id = module.hosted_zone.hosted_zone_id
 }
